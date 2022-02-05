@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacts</title>
+</head>
+<body>
+    <header>Phone Book</header>
+
+        <form action="http://localhost:8080/api/v1/contact/" method="get" id="searchboxform" onsubmit="search()">
+            <input type="text" name="name"/>
+            <button>Search</button>
+        </form>
+        <br>
+        
+        <form action="http://localhost:8080/api/v1/contact" method="post" id="addContactForm" onsubmit="magic()">
+            <p>Add new contact</p>
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name"/> <br>
+
+            <label for="phone">Phone:</label>
+            <input type="text" name="phone" id="phone"/> <br>
+
+            <label for="email">E-mail:</label>
+            <input type="text" name="email" id="email"/> <br>
+
+            <input type="submit" name="submit" id="sumbit"/>
+        </form>
+
+        <ul>
+            <li>This list items...</li>
+            <li>...will store the contacts retrieved from the server</li>
+        </ul>
+
+        <script>
+            function magic() {
+                let myForm = document.querySelector("myForm");
+                let formData = new FormData("myForm");
+                let data = JSON.stringify(formData.entries());
+
+                let request = new XMLHttpRequest();
+                request.open("POST", "http://localhost:8080/api/v1/contact");
+                request.setRequestHeader("Content-Type", "application/json");
+                request.send(data);
+            }
+        </script>
+
+        <!-- Next Code to try out (WORK IN PROGRESS) 
+        <script>
+        let theForm = document.getElementById("#addContactForm");
+        let theName = document.getElementById("#name");
+        let thePhone = document.getElementById("#phone");
+        let theEmail = document.getElementById("#email");
+
+        let jsObj = {
+            name: theName.value,
+            phone: thePhone.value,
+            email: theEmail.value
+        }
+
+        function magic() {
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", " http://localhost:8080/api/v1/contact");
+            xhr.setRequestHeader('Content-Type', 'application/json; charset=UTF-8');
+            xhr.send(JSON.stringify(jsObj));        
+        }
+    </script> -->
+</body>
+</html>
